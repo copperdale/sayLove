@@ -25,7 +25,7 @@
 		<div id="code">
 			<span class="comments">/**</span><br />
 			<span class="space"/><span class="comments">* From 2013—11-23,</span><br />
-			<span class="space"/><span class="comments">* Now 2015-8-20.</span><br />
+			<span class="space"/><span class="comments nowDate"></span><br />
 			<span class="space"/><span class="comments">* To far future.</span><br />
 			<span class="space"/><span class="comments">*/</span><br />
 			Boy name = <span class="keyword">Mr</span> XIONG<br />
@@ -81,6 +81,23 @@ together.setHours(20);
 together.setMinutes(0);
 together.setSeconds(0);
 together.setMilliseconds(0);
+
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+$(".nowDate").html("* " + new Date().Format("yyyy-MM-dd") + " .");
 
 if (!document.createElement('canvas').getContext) {
 	var msg = document.createElement("div");
